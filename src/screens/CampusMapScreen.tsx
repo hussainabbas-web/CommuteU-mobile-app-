@@ -16,7 +16,7 @@ const TMU_BUILDINGS = [
 ];
 
 const MAP_VIEWS = [
-  { label: "Main Campus", url: "https://maps.google.com/maps?q=Toronto+Metropolitan+University&output=embed&z=17" },
+  { label: "Main Campus", url: "https://maps.google.com/maps?q=17+Gould+St,+Toronto,+ON+M5B+2L5&output=embed&z=17" },
   { label: "Transit Hubs", url: "https://maps.google.com/maps?q=Dundas+Station+Toronto&output=embed&z=16" },
   { label: "Nearby Food", url: "https://maps.google.com/maps?q=restaurants+near+350+Victoria+St+Toronto&output=embed&z=16" },
 ];
@@ -42,7 +42,7 @@ export default function CampusMapScreen() {
 
         {/* Map */}
         <View style={{ marginHorizontal: 20, borderRadius: 16, overflow: "hidden", borderWidth: 2, borderColor: "#004C9B", height: 360 }}>
-          <WebView source={{ uri: MAP_VIEWS[activeView].url }} style={{ flex: 1 }} scrollEnabled={false} javaScriptEnabled={true} domStorageEnabled={true} userAgent="Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36" />
+          <WebView source={{ uri: MAP_VIEWS[activeView].url }} style={{ flex: 1 }} scrollEnabled={false} />
         </View>
 
         {/* Open in Google Maps */}
