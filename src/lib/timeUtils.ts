@@ -24,19 +24,38 @@ export function getBufferMinutes(buffer?: string): number {
   return match ? parseInt(match[1]) : 15;
 }
 
+export function parseTimeToHHMM(timeStr: string): string {
+  if (!timeStr) return "";
+  if (/^\d{1,2}:\d{2}$/.test(timeStr.trim())) return timeStr.trim();
+  const match = timeStr.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) return "";
+  let hour = parseInt(match[1]);
+  const mins = match[2];
+  const ampm = match[3].toUpperCase();
+  if (ampm === "PM" && hour !== 12) hour += 12;
+  if (ampm === "AM" && hour === 12) hour = 0;
+  return `${hour.toString().padStart(2, "0")}:${mins}`;
+}
+
 export function formatTime(timeStr?: string): string {
   if (!timeStr) return "";
-  const [h, m] = timeStr.split(":");
+  const normalized = parseTimeToHHMM(timeStr);
+  if (!normalized) return "";
+  const [h, m] = normalized.split(":");
   const hour = parseInt(h);
+  const mins = parseInt(m);
+  if (isNaN(hour) || isNaN(mins)) return "";
   const ampm = hour >= 12 ? "PM" : "AM";
   const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-  return `${displayHour}:${m} ${ampm}`;
+  return `${displayHour}:${mins.toString().padStart(2, "0")} ${ampm}`;
 }
 
 export function getMinutesUntil(timeStr?: string): number {
   if (!timeStr) return Infinity;
+  const normalized = parseTimeToHHMM(timeStr);
+  if (!normalized) return Infinity;
   const now = new Date();
-  const [h, m] = timeStr.split(":").map(Number);
+  const [h, m] = normalized.split(":").map(Number);
   const target = new Date();
   target.setHours(h, m, 0, 0);
   return Math.round((target.getTime() - now.getTime()) / 60000);
@@ -48,15 +67,15 @@ export function getDepartureTime(
   arrivalBuffer?: string
 ): string {
   if (!classStartTime) return "";
+  const normalized = parseTimeToHHMM(classStartTime);
+  if (!normalized) return "";
   const commuteMin = getCommuteMinutes(commuteDuration);
   const bufferMin = getBufferMinutes(arrivalBuffer);
   const totalMin = commuteMin + bufferMin;
-
-  const [h, m] = classStartTime.split(":").map(Number);
+  const [h, m] = normalized.split(":").map(Number);
   const departure = new Date();
   departure.setHours(h, m, 0, 0);
   departure.setMinutes(departure.getMinutes() - totalMin);
-
   const dh = departure.getHours().toString().padStart(2, "0");
   const dm = departure.getMinutes().toString().padStart(2, "0");
   return `${dh}:${dm}`;
