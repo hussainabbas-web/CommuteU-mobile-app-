@@ -24,6 +24,7 @@ export default function DashboardScreen() {
   }, []);
 
   const loadData = async () => {
+    
     try {
       const storedUser = await AsyncStorage.getItem("@commuteu_user");
       const storedClasses = await AsyncStorage.getItem("@commuteu_classes");
@@ -81,3 +82,4 @@ export default function DashboardScreen() {
     </ScrollView>
   );
 }
+

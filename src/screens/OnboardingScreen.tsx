@@ -262,13 +262,13 @@ export default function OnboardingScreen() {
                   <View style={{ flex: 1 }}>
                     <Text style={{ color: "rgba(147,197,253,1)", fontSize: 12, marginBottom: 4 }}>Start time</Text>
                     <TextInput style={{ borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10, color: "white", fontSize: 14, backgroundColor: "rgba(255,255,255,0.08)", borderWidth: 1, borderColor: "rgba(255,255,255,0.15)" }}
-                      placeholder="9:00 AM" placeholderTextColor="rgba(255,255,255,0.35)" value={cls.start_time}
+                      placeholder="09:00" placeholderTextColor="rgba(255,255,255,0.35)" value={cls.start_time}
                       onChangeText={v => setData(d => ({ ...d, classes: d.classes.map(c => c.id === cls.id ? { ...c, start_time: v } : c) }))} />
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text style={{ color: "rgba(147,197,253,1)", fontSize: 12, marginBottom: 4 }}>End time</Text>
                     <TextInput style={{ borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10, color: "white", fontSize: 14, backgroundColor: "rgba(255,255,255,0.08)", borderWidth: 1, borderColor: "rgba(255,255,255,0.15)" }}
-                      placeholder="10:50 AM" placeholderTextColor="rgba(255,255,255,0.35)" value={cls.end_time}
+                      placeholder="10:50" placeholderTextColor="rgba(255,255,255,0.35)" value={cls.end_time}
                       onChangeText={v => setData(d => ({ ...d, classes: d.classes.map(c => c.id === cls.id ? { ...c, end_time: v } : c) }))} />
                   </View>
                 </View>
